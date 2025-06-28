@@ -1,7 +1,7 @@
-#include "../include/terminal.h"
 #include "../include/file.h"
-#include "../include/output.h"
 #include "../include/input.h"
+#include "../include/output.h"
+#include "../include/terminal.h"
 
 int main(int argc, char *argv[]) {
 	enableRawMode();

@@ -45,7 +45,7 @@ enum editorHighlight {
 #define HL_HIGHLIGHT_STRINGS (1 << 1)
 
 struct editorSyntax {
-	char *filetype;	   // name of filetype displayed to the user
+	char *filetype;	 // name of filetype displayed to the user
 	char **filematch;  // it is an array of strings, where each string contains a pattern to match a filename against
 	char **keywords;
 	char *singleline_comment_start;
@@ -55,26 +55,26 @@ struct editorSyntax {
 };
 
 typedef struct erow {
-	int idx;			  // for erow to know it's own index within the file
-	int size;			  // Size of the row
-	int rsize;			  // Size of render
-	char *chars;		  // String that is present in file
-	char *render;		  // Render what's going to printed on screen
-	unsigned char *hl;	  // this array will correspond to characters in render
+	int idx;  // for erow to know it's own index within the file
+	int size;  // Size of the row
+	int rsize;	// Size of render
+	char *chars;  // String that is present in file
+	char *render;  // Render what's going to printed on screen
+	unsigned char *hl;	// this array will correspond to characters in render
 	int hl_open_comment;  // boolean value to keep track of multiline comments
-} erow;					  // Editor row
+} erow;	 // Editor row
 
 struct editorConfig {
-	int cx, cy;		 // coordinates of cursor
-	int rx;			 // like cx is for chars, rx is for render
-	int rowoff;		 // row offset to track the top row
-	int coloff;		 // column offset to track the first column
+	int cx, cy;	 // coordinates of cursor
+	int rx;	 // like cx is for chars, rx is for render
+	int rowoff;	 // row offset to track the top row
+	int coloff;	 // column offset to track the first column
 	int screenrows;	 // No. of rows on the screen
 	int screencols;	 // No. of columns on the screen
-	int numrows;	 // No. of rows to be printed
-	erow *row;		 // Array of rows to pe printed on screen
+	int numrows;  // No. of rows to be printed
+	erow *row;	// Array of rows to pe printed on screen
 	char *filename;	 // File name passed in argument
-	int dirty;		 // to keep track of whether the text loaded in our editor differs from the file
+	int dirty;	// to keep track of whether the text loaded in our editor differs from the file
 	char statusmsg[80];
 	time_t statusmsg_time;	// It will contain the timestamp of when we print the status
 	struct editorSyntax *syntax;

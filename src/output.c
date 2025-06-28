@@ -1,6 +1,8 @@
+#include "../include/output.h"
+
 #include <ctype.h>
 #include <stdarg.h>
-#include "../include/output.h"
+
 #include "../include/row.h"
 #include "../include/syntax.h"
 
@@ -124,7 +126,7 @@ void editorRefreshScreen() {
 	struct abuf ab = ABUF_INIT;
 	// ?25 = Toggle cursor visibility
 	abAppend(&ab, "\x1b[?25l", 6);	// l - hide cursor
-	abAppend(&ab, "\x1b[H", 3);		// Position the cursor at top-left corner
+	abAppend(&ab, "\x1b[H", 3);	 // Position the cursor at top-left corner
 	editorDrawRows(&ab);
 	editorDrawStatusBar(&ab);
 	editorDrawMessageBar(&ab);

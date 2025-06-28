@@ -1,8 +1,8 @@
 #ifndef OUTPUT_H
 #define OUTPUT_H
 
-#include "editor.h"
 #include "buffer.h"
+#include "editor.h"
 
 void editorScroll(void);
 void editorDrawRows(struct abuf *ab);

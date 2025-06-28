@@ -1,9 +1,11 @@
-#include <ctype.h>
 #include "../include/input.h"
-#include "../include/output.h"
-#include "../include/terminal.h"
-#include "../include/search.h"
+
+#include <ctype.h>
+
 #include "../include/file.h"
+#include "../include/output.h"
+#include "../include/search.h"
+#include "../include/terminal.h"
 
 char *editorPrompt(char *prompt, void (*callback)(char *, int)) {
 	size_t bufsize = 128;
@@ -97,7 +99,7 @@ void editorProcessKeypress() {
 				return;
 			}
 			write(STDOUT_FILENO, "\x1b[2J", 4);	 // Clear screen
-			write(STDOUT_FILENO, "\x1b[H", 3);	 // Position the cursor at top-left corner
+			write(STDOUT_FILENO, "\x1b[H", 3);	// Position the cursor at top-left corner
 			exit(0);
 			break;
 
@@ -156,4 +158,3 @@ void editorProcessKeypress() {
 	}
 	quit_times = QUIT_TIMES;
 }
-

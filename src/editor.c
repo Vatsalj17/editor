@@ -1,6 +1,7 @@
 #include "../include/editor.h"
-#include "../include/terminal.h"
+
 #include "../include/row.h"
+#include "../include/terminal.h"
 
 struct editorConfig E;
 
@@ -61,4 +62,3 @@ void editorDelChar() {
 		E.cy--;
 	}
 }
-

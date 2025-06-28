@@ -1,6 +1,7 @@
 #include "../include/search.h"
-#include "../include/row.h"
+
 #include "../include/input.h"
+#include "../include/row.h"
 
 void editorFindCallback(char *query, int key) {
 	static int last_match = -1;	 // static so that it remembers its value between function calls
@@ -28,7 +29,7 @@ void editorFindCallback(char *query, int key) {
 	}
 
 	if (last_match == -1) direction = 1;  // if no previous match, we force the forward search
-	int current = last_match;			  // start searching from where we left
+	int current = last_match;  // start searching from where we left
 
 	// Incremental search
 	for (int i = 0; i < E.numrows; i++) {
@@ -38,11 +39,11 @@ void editorFindCallback(char *query, int key) {
 		else if (current == E.numrows)
 			current = 0;  // went past bottom when searching forward
 
-		erow *row = &E.row[current];			   // get the row to search
+		erow *row = &E.row[current];  // get the row to search
 		char *match = strstr(row->render, query);  // to find the query
 		if (match) {
 			last_match = current;  // save last match index
-			E.cy = current;		   // jump
+			E.cy = current;	 // jump
 			E.cx = editorRowRxToCx(row, match - row->render);
 			E.rowoff = E.numrows;  // scroll to cursor
 
@@ -72,4 +73,3 @@ void editorFind() {
 		E.rowoff = saved_rowoff;
 	}
 }
-

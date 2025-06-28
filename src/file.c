@@ -1,11 +1,13 @@
+#include "../include/file.h"
+
 #include <errno.h>
 #include <fcntl.h>
-#include "../include/file.h"
+
+#include "../include/input.h"
+#include "../include/output.h"
+#include "../include/row.h"
 #include "../include/syntax.h"
 #include "../include/terminal.h"
-#include "../include/row.h"
-#include "../include/output.h"
-#include "../include/input.h"
 
 char *editorRowsToString(int *buflen) {
 	int totlen = 0;
@@ -17,8 +19,8 @@ char *editorRowsToString(int *buflen) {
 	char *p = buf;	// making p point the same location as buf
 	for (j = 0; j < E.numrows; j++) {
 		memcpy(p, E.row[j].chars, E.row[j].size);  // copies each line to p
-		p += E.row[j].size;						   // move pointer forward
-		*p = '\n';								   // add newline after every line
+		p += E.row[j].size;	 // move pointer forward
+		*p = '\n';	// add newline after every line
 		p++;
 	}
 	return buf;
@@ -76,4 +78,3 @@ void editorSave() {
 	free(buf);
 	editorSetStatusMessage("Can't Save! I/O error: %s", strerror(errno));
 }
-

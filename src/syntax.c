@@ -38,7 +38,7 @@ void editorUpdateSyntax(erow *row) {
 	int mcs_len = mcs ? strlen(mcs) : 0;
 	int mce_len = mce ? strlen(mce) : 0;
 
-	int prev_sep = 1;	// Indicates if the previous character was a separator
+	int prev_sep = 1;  // Indicates if the previous character was a separator
 	int in_string = 0;	// Tracks if we're inside a string (either ' or ")
 
 	int in_comment = (row->idx > 0 && E.row[row->idx - 1].hl_open_comment);	 // If previous line was still inside a multiline comment, continue it
@@ -59,12 +59,11 @@ void editorUpdateSyntax(erow *row) {
 			}
 		}
 
-		/*** Multiline Comment Highlighting ***/
+        // multiline comment highlighting
 		if (mcs_len && mce_len && !in_string) {
 			if (in_comment) {
 				// Inside a multiline comment → highlight this character
 				row->hl[i] = HL_MLCOMMENT;
-
 				// If we encounter the end of the comment
 				if (!strncmp(&row->render[i], mce, mce_len)) {
 					// Highlight the comment end
@@ -87,21 +86,18 @@ void editorUpdateSyntax(erow *row) {
 			}
 		}
 
-		/*** String Highlighting (single or double quotes) ***/
+        // String highlight (' or ")
 		if (E.syntax->flags & HL_HIGHLIGHT_STRINGS) {
 			if (in_string) {
 				row->hl[i] = HL_STRING;
-
 				// Escape sequences inside string (e.g., "hello \"world\"")
 				if (c == '\\' && i + 1 < row->rsize) {
 					row->hl[i + 1] = HL_STRING;
 					i += 2;
 					continue;
 				}
-
 				// If string ends
 				if (c == in_string) in_string = 0;
-
 				i++;
 				prev_sep = 1;
 				continue;
@@ -116,7 +112,7 @@ void editorUpdateSyntax(erow *row) {
 			}
 		}
 
-		/*** Number Highlighting ***/
+        // Number highlighting
 		if (E.syntax->flags & HL_HIGHLIGHT_NUMBERS) {
 			if ((isdigit(c) && (prev_sep || prev_hl == HL_NUMBER)) ||
 				(c == '.' && prev_hl == HL_NUMBER)) {
@@ -127,15 +123,13 @@ void editorUpdateSyntax(erow *row) {
 			}
 		}
 
-		/*** Keyword Highlighting ***/
+        // Keyword highlighing
 		if (prev_sep) {
 			int j;
 			for (j = 0; keywords[j]; j++) {
 				int klen = strlen(keywords[j]);
 				int kw2 = keywords[j][klen - 1] == '|';	 // Check for keyword type 2 (ends with '|')
-
 				if (kw2) klen--;  // Remove '|' from keyword length
-
 				// Match keyword at current position and ensure it's followed by a separator
 				if (!strncmp(&row->render[i], keywords[j], klen) &&
 					is_separator(row->render[i + klen])) {
@@ -145,23 +139,20 @@ void editorUpdateSyntax(erow *row) {
 					break;
 				}
 			}
-
 			// If keyword matched, move on to next char
 			if (keywords[j] != NULL) {
 				prev_sep = 0;
 				continue;
 			}
 		}
-
 		// Update separator flag for next character
 		prev_sep = is_separator(c);
 		i++;
 	}
 
-	/*** Post-processing: Propagate multiline comment state to next line if needed ***/
+	// Propagate multiline comment state to next line if needed
 	int changed = (row->hl_open_comment != in_comment);
 	row->hl_open_comment = in_comment;
-
 	// If multiline comment state changed and there’s a next line, update it too
 	if (changed && row->idx + 1 < E.numrows)
 		editorUpdateSyntax(&E.row[row->idx + 1]);
