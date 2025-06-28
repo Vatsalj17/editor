@@ -1,4 +1,4 @@
-# Terminal Text Editor
+# Text Editor
 
 A lightweight terminal-based text editor written in C with syntax highlighting and modern features.
 
