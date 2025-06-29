@@ -79,6 +79,7 @@ void editorDrawRows(struct abuf *ab) {
 				} else {
 					int color = editorSyntaxToColor(hl[j]);
 					if (color != current_color) {
+                        current_color = color;
 						char buf[16];
 						int clen = snprintf(buf, sizeof(buf), "\x1b[%dm", color);
 						abAppend(ab, buf, clen);

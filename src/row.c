@@ -77,7 +77,7 @@ void editorDelRow(int at) {
 	if (at < 0 || at >= E.numrows) return;
 	editorFreeRow(&E.row[at]);
 	memmove(&E.row[at], &E.row[at + 1], sizeof(erow) * (E.numrows - at - 1));  // Shifts rows up
-	for (int j = at; j <= E.numrows - 1; j++) E.row[j].idx--;  // update the index of each row that was displaced by the insert or delete
+	for (int j = at; j < E.numrows - 1; j++) E.row[j].idx--;  // update the index of each row that was displaced by the insert or delete
 	// last argument tells how many rows to move
 	E.numrows--;
 	E.dirty++;
